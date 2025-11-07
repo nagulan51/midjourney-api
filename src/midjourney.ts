@@ -378,6 +378,63 @@ export class Midjourney extends MidjourneyMessage {
     });
   }
 
+  async Animate({
+    level,
+    msgId,
+    hash,
+    content,
+    flags,
+    loading,
+  }: {
+    level: "high" | "low";
+    msgId: string;
+    hash: string;
+    content?: string;
+    flags: number;
+    loading?: LoadingHandler;
+  }) {
+    let customId: string;
+    switch (level) {
+      case "high":
+        customId = `MJ::JOB::animate_high::1::${hash}::SOLO`;
+        break;
+      case "low":
+        customId = `MJ::JOB::animate_low::1::${hash}::SOLO`;
+        break;
+    }
+    return this.Custom({
+      msgId,
+      customId,
+      content,
+      flags,
+      loading,
+    });
+  }
+
+  async UpscaleAnimated({
+    index,
+    msgId,
+    hash,
+    content,
+    flags,
+    loading,
+  }: {
+    index: 1 | 2 | 3 | 4;
+    msgId: string;
+    hash: string;
+    content?: string;
+    flags: number;
+    loading?: LoadingHandler;
+  }) {
+    return await this.Custom({
+      customId: `MJ::JOB::video_virtual_upscale::${index}::${hash}`,
+      msgId,
+      content,
+      flags,
+      loading,
+    });
+  }
+
   async FaceSwap(target: string, source: string) {
     const wsClient = await this.getWsClient();
     const app = new faceSwap(this.config.HuggingFaceToken);
