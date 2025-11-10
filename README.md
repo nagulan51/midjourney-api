@@ -5,10 +5,10 @@ Node.js client for the unofficial MidJourney api.
 English / [中文文档](README_zh.md)
 
 <div align="center">
-	<p>
-		<a href="https://discord.gg/GavuGHQbV4"><img src="https://img.shields.io/discord/1082500871478329374?color=5865F2&logo=discord&logoColor=white" alt="Discord server" /></a>
-		<a href="https://www.npmjs.com/package/midjourney"><img src="https://img.shields.io/npm/v/midjourney.svg?maxAge=3600" alt="npm version" /></a>
-	</p>
+ <p>
+  <a href="https://discord.gg/GavuGHQbV4"><img src="https://img.shields.io/discord/1082500871478329374?color=5865F2&logo=discord&logoColor=white" alt="Discord server" /></a>
+  <a href="https://www.npmjs.com/package/midjourney"><img src="https://img.shields.io/npm/v/midjourney.svg?maxAge=3600" alt="npm version" /></a>
+ </p>
 </div>
 
 ## What's new
@@ -119,6 +119,7 @@ To run the included example, you must have [Node.js](https://nodejs.org/en/) ins
    ```
 
 2. config param
+
    ```typescript
    export interface MJConfigParam {
      SalaiToken: string; //DISCORD_TOKEN
@@ -140,6 +141,7 @@ To run the included example, you must have [Node.js](https://nodejs.org/en/) ins
      WebSocket?: WebSocketCl; //isomorphic-ws Or proxy
    }
    ```
+
 3. Use Imagine 、Variation and Upscale
 
    ```typescript
@@ -219,15 +221,34 @@ To run the included example, you must have [Node.js](https://nodejs.org/en/) ins
      },
    });
    console.log(CustomZoomout);
+
+   const Animate = await client.Animate({
+     msgId: <string>Upscale.id,
+     flags: Upscale.flags,
+     hash: <string>Upscale.hash,
+     level: "low", // low or high motion speed
+     loading: (uri: string, progress: string) => {
+       console.log("loading", uri, "progress", progress);
+     },
+   });
+   console.log(Animate);
+
+   const AnimateUpscale = await client.UpscaleAnimated({
+     msgId: <string>Animate.id,
+     flags: Animate.flags,
+     hash: <string>Animate.hash,
+     loading: (uri: string, progress: string) => {
+       console.log("loading", uri, "progress", progress);
+     },
+   });
+   console.log(AnimateUpscale);
    ```
-
-
 
 ## route-map
 
 - [x] `/imagine` `variation` `upscale` `reroll` `blend` `zoomout` `vary`
 - [x] `/info`
-- [x] `/fast ` and `/relax `
+- [x] `/fast` and `/relax`
 - [x] [`/prefer remix`](https://github.com/erictik/midjourney-client/blob/main/example/prefer-remix.ts)
 - [x] [`variation (remix mode)`](https://github.com/erictik/midjourney-client/blob/main/example/variation-ws.ts)
 - [x] `/describe`

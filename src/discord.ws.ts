@@ -134,6 +134,8 @@ export class WsMessage {
   }
   private async messageCreate(message: any) {
     const { embeds, id, nonce, components, attachments } = message;
+
+
     if (nonce) {
       // this.log("waiting start image or info or error");
       this.updateMjEventIdByNonce(id, nonce);
@@ -177,6 +179,7 @@ export class WsMessage {
     }
 
     if (attachments?.length > 0 && components?.length > 0) {
+
       this.done(message);
       return;
     }
@@ -310,7 +313,6 @@ export class WsMessage {
       this.log(data);
     }
     this.log("event", msg.t);
-    // console.log(data);
     switch (msg.t) {
       case "READY":
         this.emitSystem("ready", message.user);
@@ -430,7 +432,10 @@ export class WsMessage {
     if (!event) {
       return;
     }
-    event.prompt = content;
+    // exclude displaying message on video kind attachments
+    if (content !== "Displaying...") {
+      event.prompt = content;
+    }
     //not image
     if (!attachments || attachments.length === 0) {
       return;
@@ -457,6 +462,7 @@ export class WsMessage {
     // delay 300ms for discord message delete
     await this.timeout(300);
     const event = this.getEventByContent(MJmsg.content);
+
     if (!event) {
       this.log("FilterMessages not found", MJmsg, this.waitMjEvents);
       return;
@@ -469,6 +475,7 @@ export class WsMessage {
   private getEventByContent(content: string) {
     const prompt = content2prompt(content);
     //fist del message
+
     for (const [key, value] of this.waitMjEvents.entries()) {
       if (
         value.del === true &&
@@ -648,6 +655,7 @@ export class WsMessage {
         nonce,
         prompt,
         onmodal: async (oldnonce, id) => {
+
           if (onmodal === undefined) {
             // reject(new Error("onmodal is not defined"))
             return "";
