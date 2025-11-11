@@ -70,6 +70,7 @@ export class Midjourney extends MidjourneyMessage {
       throw new Error(`ImagineApi failed with status ${httpStatus}`);
     }
     if (this.wsClient) {
+      console.log(`waiting for image message...`);
       return await this.wsClient.waitImageMessage({ nonce, loading, prompt });
     } else {
       this.log(`await generate image`);

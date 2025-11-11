@@ -432,10 +432,11 @@ export class WsMessage {
     if (!event) {
       return;
     }
-    // exclude displaying message on video kind attachments
-    if (content !== "Displaying...") {
-      event.prompt = content;
-    }
+    // // exclude displaying message on video kind attachments
+    // if (content === "Displaying...") {
+    //   return;
+    //   // event.prompt = content;
+    // }
     //not image
     if (!attachments || attachments.length === 0) {
       return;
@@ -655,6 +656,7 @@ export class WsMessage {
         nonce,
         prompt,
         onmodal: async (oldnonce, id) => {
+          console.log("onmodal called", oldnonce, id);
 
           if (onmodal === undefined) {
             // reject(new Error("onmodal is not defined"))

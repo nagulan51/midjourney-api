@@ -122,12 +122,15 @@ export const content2prompt = (content: string) => {
   if (!content) return "";
   const pattern = /\*\*(.*?)\*\*/; // Match **middle content
   const matches = content.match(pattern);
+  let prompt = ""
   if (matches && matches.length > 1) {
-    return matches[1]; // Get the matched content
+    prompt = matches[1]; // Get the matched content
   } else {
     console.log("No match found.", content);
-    return content;
+    prompt = content;
   }
+  // remove all --flags and their values
+  return prompt.replace(/--\w+(?:\s+[^\s-][^\s]*)?/g,"").trim();
 };
 
 export function custom2Type(custom: string) {

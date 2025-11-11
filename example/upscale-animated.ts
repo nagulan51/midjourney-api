@@ -12,7 +12,7 @@ async function main() {
     ServerId: <string>process.env.SERVER_ID,
     ChannelId: <string>process.env.CHANNEL_ID,
     SalaiToken: <string>process.env.SALAI_TOKEN,
-    Debug: true,
+    // Debug: true,
   });
   await client.init();
   const msg = await client.Imagine("a cool cat, blue ears, yellow hat");
