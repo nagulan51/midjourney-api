@@ -656,7 +656,6 @@ export class WsMessage {
         nonce,
         prompt,
         onmodal: async (oldnonce, id) => {
-          console.log("onmodal called", oldnonce, id);
 
           if (onmodal === undefined) {
             // reject(new Error("onmodal is not defined"))
