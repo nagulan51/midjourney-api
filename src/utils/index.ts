@@ -57,7 +57,7 @@ export const formatInfo = (msg: string) => {
     queuedJobsRelax: "",
     runningJobs: "",
   }; // Initialize jsonResult with empty object
-  msg.split("\n").forEach(function (line) {
+  msg.split("\n").forEach(function(line) {
     const colonIndex = line.indexOf(":");
     if (colonIndex > -1) {
       const key = line.substring(0, colonIndex).trim().replaceAll("**", "");
@@ -129,8 +129,8 @@ export const content2prompt = (content: string) => {
     console.log("No match found.", content);
     prompt = content;
   }
-  // remove all --flags and their values
-  return prompt.replace(/--\w+(?:\s+[^\s-][^\s]*)?/g,"").trim();
+  // remove all |with space|--flags and their values
+  return prompt.replace(/\s--\w+(?:\s+(?!-)[^]*)?(?=\s--\w+|$)/g, "").trim();
 };
 
 export function custom2Type(custom: string) {
