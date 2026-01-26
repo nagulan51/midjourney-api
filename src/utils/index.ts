@@ -126,7 +126,6 @@ export const content2prompt = (content: string) => {
   if (matches && matches.length > 1) {
     prompt = matches[1]; // Get the matched content
   } else {
-    console.log("No match found.", content);
     prompt = content;
   }
   // remove all |with space|--flags and their values
