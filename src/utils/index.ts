@@ -118,8 +118,14 @@ export const content2progress = (content: string) => {
   return progress;
 };
 
+function normalize(value: string): string {
+  return value
+    .normalize('NFKC')
+    .replace(/[\u2010-\u2015\u2212]/g, '-');
+}
 export const content2prompt = (content: string) => {
   if (!content) return "";
+  content = normalize(content);
   const pattern = /\*\*(.*?)\*\*/; // Match **middle content
   const matches = content.match(pattern);
   let prompt = ""

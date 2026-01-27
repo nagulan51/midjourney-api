@@ -465,6 +465,7 @@ export class WsMessage {
     const event = this.getEventByContent(MJmsg.content);
 
     if (!event) {
+      console.log("FilterMessages not found")
       this.log("FilterMessages not found", MJmsg, this.waitMjEvents);
       return;
     }
@@ -478,6 +479,13 @@ export class WsMessage {
     //fist del message
 
     for (const [key, value] of this.waitMjEvents.entries()) {
+      console.log("getEventByContent checking", {
+        valuePrompt: content2prompt(value.prompt as string),
+        value: value.prompt,
+        content: content,
+        contentPrompt: prompt,
+      });
+      
       if (
         value.del === true &&
         prompt === content2prompt(value.prompt as string)
