@@ -479,12 +479,6 @@ export class WsMessage {
     //fist del message
 
     for (const [key, value] of this.waitMjEvents.entries()) {
-      console.log("getEventByContent checking", {
-        valuePrompt: content2prompt(value.prompt as string),
-        value: value.prompt,
-        content: content,
-        contentPrompt: prompt,
-      });
       
       if (
         value.del === true &&
